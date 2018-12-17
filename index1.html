@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Public Profile</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@nytimesbits" />
+	<meta name="twitter:creator" content="@nickbilton" />
+	<meta property="og:url" content="http://bits.blogs.nytimes.com/2011/12/08/a-twitter-for-my-sister/" />
+	<meta property="og:title" content="A Twitter for My Sister" />
+	<meta property="og:description" content="In the early days, Twitter grew so quickly that it was almost impossible to add new features because engineers spent their time trying to keep the rocket ship from stalling."
+	/>
+	<meta property="og:image" content="http://graphics8.nytimes.com/images/2011/12/08/technology/bits-newtwitter/bits-newtwitter-tmagArticle.jpg"
+	/> -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@ondirect" />
+	<meta name="twitter:creator" content="@ondirect" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+	 crossorigin="anonymous">
+	<style>
+		body {
+			margin: 0;
+			height: 100vh;
+			width: 100vw;
+			background: #00a8f7;
+		}
+		.main-container {
+			background: #fff;
+			top: 50%;
+			left: 50%;
+			position: fixed;
+			transform: translate(-50%, -50%);
+			display: grid;
+			grid-template-areas: "profile info";
+			grid-gap: 30px;
+			border: 2px solid #ccc;
+			width: 50%;
+			padding: 20px 30px;
+		}
+
+		.profile {
+			grid-area: "profile";
+			justify-self: start;
+		}
+
+		.info {
+			grid-area: "info";
+			color: #505050;
+		}
+
+		.social {
+			grid-area: "social";
+		}
+
+		.social a i {
+			color: #505050;
+			margin-right: 10px;
+			margin-bottom: 12px;
+		}
+
+		.empty {
+			grid-area: "empty";
+		}
+
+		.name {
+			margin-top: 15px;
+			margin-bottom: 7px;
+			color: #4a4a4a;
+			font-size: 28px;
+			font-weight: bold;
+			word-break: break-all;
+		}
+
+		.desig {
+			margin-bottom: 15px;
+			font-size: 14px;
+			word-break: break-all;
+		}
+
+		.interest {
+			display: inline-block;
+			background-color: #edecee;
+			padding: 5px 10px;
+			font-size: 12px;
+			margin-right: 10px;
+			margin-bottom: 10px;
+		}
+
+		.desc {
+			/* padding: 5px 15px 15px 0px; */
+			word-break: break-all;
+		}
+
+		#profileImage {
+			display: none;
+			width: 100%;
+			border-radius: 50%;
+			margin-top: 1rem;
+			width: 10rem;
+			height: 10rem;
+		}
+
+		#dummyImage,
+		#emailid,
+		#facebookid,
+		#twitterid,
+		#instagramid {
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="main-container public-profile-preview-dialog">
+		<div class="profile profile-image-box">
+			<img id="profileImage" alt="Profile Image">
+			<i id="dummyImage" class="fas fa-user-circle fa-6x"></i>
+		</div>
+		<div class="info pr_data">
+			<div class="name"></div>
+			<div class="desig"></div>
+			<div class="interests"></div>
+			<p class="desc"></p>
+		</div>
+		<!-- <hr> -->
+		<div class="empty"></div>
+		<div class="social flex-container footer-icon-holder">
+			<a id="emailid" target="_blank">
+				<i class="fas fa-envelope-square fa-2x"></i>
+			</a>
+			<a id="facebookid" target="_blank">
+				<i class="fab fa-facebook fa-2x"></i>
+			</a>
+			<a id="twitterid" target="_blank">
+				<i class="fab fa-twitter-square fa-2x"></i>
+			</a>
+			<a id="instagramid" target="_blank">
+				<i class="fab fa-instagram fa-2x"></i>
+			</a>
+		</div>
+	</div>
+</body>
+<script>
+	let meta1 = document.createElement('meta');
+	meta1.setAttribute('content', "Govind Singh");
+	meta1.setAttribute('property', "og:title");
+	document.getElementsByTagName('head')[0].appendChild(meta1);
+	
+	let meta2 = document.createElement('meta');
+	meta2.setAttribute('content', "lorem lipsum sdfjksd sdjkfjsdjfsd fsdfkjsdkjfsd sdkfjksdjfks sdfsldkfkl ");
+	meta2.setAttribute('property', "og:description");
+	document.getElementsByTagName('head')[0].appendChild(meta2);
+	
+	let meta3 = document.createElement('meta');
+	meta3.setAttribute('content', "https://s3-ap-southeast-1.amazonaws.com/onedirect/profile/image/4513018/profile-image-1544790792237.jpg");
+	meta3.setAttribute('property', "og:image");
+	document.getElementsByTagName('head')[0].appendChild(meta3);
+	
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function () {
+		if (this.readyState == 4) {
+			try {
+				if (this.responseText) {
+					var responseData = JSON.parse(this.responseText);
+					responseData['interestArray'] = [];
+					if (responseData['interest']) {
+						responseData['interestArray'] = responseData['interest'].split(',');
+					}
+					let interestDiv = document.getElementsByClassName("interests")[0];
+					for (let inter in responseData.interestArray) {
+						let int = document.createElement('div');
+						int.classList.add("interest");
+						int.innerHTML = responseData.interestArray[inter];
+						interestDiv.appendChild(int);
+					}
+
+					responseData.name ? document.getElementsByClassName("name")[0].innerHTML = responseData.name : document.getElementsByClassName("name")[0].innerHTML = "";
+					responseData.designation ? document.getElementsByClassName("desig")[0].innerHTML = responseData.designation : document.getElementsByClassName("desig")[0].innerHTML = "";
+					// responseData.interest ? document.getElementsByClassName("interest")[0].innerHTML = responseData.interest : document.getElementsByClassName("interest")[0].innerHTML = "";
+					responseData.description ? document.getElementsByClassName("desc")[0].innerHTML = responseData.description : document.getElementsByClassName("desc")[0].innerHTML = "";
+					if (responseData.profileImageUrl) {
+						document.getElementById("profileImage").setAttribute("src", responseData.profileImageUrl);
+						document.getElementById("profileImage").setAttribute("style", "display:block");
+					} else {
+						document.getElementById("dummyImage").style.display = "block";
+					}
+					if (responseData.emailId) {
+						let email = document.getElementById("emailid");
+						email.setAttribute("href", "mailto:" + responseData.emailId);
+						email.style.display = "inline-block";
+					}
+					if (responseData.facebookId) {
+						let fb = document.getElementById("facebookid");
+						fb.setAttribute("href", responseData.facebookId);
+						fb.style.display = "inline-block";
+					}
+					if (responseData.twitterId) {
+						let tw = document.getElementById("twitterid");
+						tw.setAttribute("href", responseData.twitterId);
+						tw.style.display = "inline-block";
+					}
+					if (responseData.instagramId) {
+						let inst = document.getElementById("instagramid");
+						inst.setAttribute("href", responseData.instagramId);
+						inst.style.display = "inline-block";
+					}
+					console.log(responseData);
+				}
+			} catch (err) {
+				console.log("Error in response text", err);
+			}
+		}
+	};
+	let queryParam = window.location.toString().split("?");
+	xhttp.open("GET", window.location.origin + "/isapi/profile/detail/public/?uid=" + queryParam[queryParam.length - 1], true);
+	xhttp.send();
+</script>
+
+</html>
