@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Public Profile</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="twitter:card" content="summary" />
+<!-- 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:site" content="@nytimesbits" />
 	<meta name="twitter:creator" content="@nickbilton" />
 	<meta property="og:url" content="http://bits.blogs.nytimes.com/2011/12/08/a-twitter-for-my-sister/" />
@@ -14,7 +14,10 @@
 	<meta property="og:description" content="In the early days, Twitter grew so quickly that it was almost impossible to add new features because engineers spent their time trying to keep the rocket ship from stalling."
 	/>
 	<meta property="og:image" content="http://graphics8.nytimes.com/images/2011/12/08/technology/bits-newtwitter/bits-newtwitter-tmagArticle.jpg"
-	/>
+	/> -->
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@ondirect" />
+	<meta name="twitter:creator" content="@ondirect" />
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
 	 crossorigin="anonymous">
 	<style>
@@ -141,6 +144,21 @@
 	</div>
 </body>
 <script>
+	let meta1 = document.createElement('meta');
+	meta1.setAttribute('content', "Govind Singh");
+	meta1.setAttribute('property', "og:title");
+	document.getElementsByTagName('head')[0].appendChild(meta1);
+	
+	let meta2 = document.createElement('meta');
+	meta2.setAttribute('content', "lorem lipsum sdfjksd sdjkfjsdjfsd fsdfkjsdkjfsd sdkfjksdjfks sdfsldkfkl ");
+	meta2.setAttribute('property', "og:description");
+	document.getElementsByTagName('head')[0].appendChild(meta2);
+	
+	let meta3 = document.createElement('meta');
+	meta3.setAttribute('content', "https://s3-ap-southeast-1.amazonaws.com/onedirect/profile/image/4513018/profile-image-1544790792237.jpg");
+	meta3.setAttribute('property', "og:image");
+	document.getElementsByTagName('head')[0].appendChild(meta3);
+	
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function () {
 		if (this.readyState == 4) {
